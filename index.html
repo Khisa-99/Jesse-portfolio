@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jesse Njeru Njuguna • Portfolio</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --color-bg: #f5f7fa;
+      --color-text: #2b2b2b;
+      --color-accent: #0066cc;
+      --color-card-bg: #ffffff;
+      --color-border: #e0e0e0;
+      --color-sidebar-bg: #ffffff;
+      --color-sidebar-text: #2b2b2b;
+      --shadow-light: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+      --shadow-dark: rgba(0, 0, 0, 0.6) 0px 4px 12px;
+      --radius: 0.5rem;
+      --transition: 0.3s ease-in-out;
+      --sidebar-width: 260px;
+      --padding: 1.5rem;
+    }
+
+    [data-theme="dark"] {
+      --color-bg: #1e1e1e;
+      --color-text: #e0e0e0;
+      --color-accent: #3399ff;
+      --color-card-bg: #2a2a2a;
+      --color-border: #333333;
+      --color-sidebar-bg: #2a2a2a;
+      --color-sidebar-text: #e0e0e0;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      transition: background-color var(--transition),
+                  color var(--transition);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    ul li::before {
+      content: "▹";
+      color: var(--color-accent);
+      margin-right: 0.5rem;
+    }
+
+    .wrapper {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* -----------------------------------
+       SIDEBAR
+    ----------------------------------- */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100%;
+      background-color: var(--color-sidebar-bg);
+      color: var(--color-sidebar-text);
+      padding: var(--padding) 1rem;
+      border-right: 1px solid var(--color-border);
+      box-shadow: var(--shadow-light);
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition) ease-in-out;
+      z-index: 1000;
+    }
+
+    [data-theme="dark"] .sidebar {
+      box-shadow: var(--shadow-dark);
+    }
+
+    .sidebar .profile {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .sidebar .profile img.profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+      border: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-light);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    [data-theme="dark"] .sidebar .profile img.profile-img {
+      box-shadow: var(--shadow-dark);
+    }
+
+    .sidebar .profile h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .sidebar nav {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .sidebar nav a {
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      transition: background-color var(--transition),
+                  color var(--transition);
+      color: var(--color-sidebar-text);
+    }
+
+    .sidebar nav a.active,
+    .sidebar nav a:hover {
+      background-color: var(--color-accent);
+      color: #ffffff;
+    }
+
+    .sidebar .theme-toggle {
+      margin-top: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .sidebar .theme-toggle button {
+      cursor: pointer;
+      font-size: 1.5rem;
+      padding: 0.5rem;
+      border: none;
+      background: none;
+      color: var(--color-sidebar-text);
+      transition: color var(--transition);
+    }
+
+    .sidebar .theme-toggle button:hover {
+      color: var(--color-accent);
+    }
+
+    /* -----------------------------------
+       MAIN CONTENT
+    ----------------------------------- */
+    main {
+      margin-left: var(--sidebar-width);
+      padding: var(--padding) var(--padding) var(--padding)
+               calc(var(--padding) / 2);
+      max-width: calc(100% - var(--sidebar-width));
+      transition: margin-left var(--transition);
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    section h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--color-accent);
+      display: inline-block;
+      padding-bottom: 0.25rem;
+    }
+
+    .card {
+      background-color: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-light);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: background-color var(--transition),
+                  box-shadow var(--transition);
+    }
+
+    [data-theme="dark"] .card {
+      box-shadow: var(--shadow-dark);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out,
+                  transform 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem 0;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* -----------------------------------
+       RESPONSIVE BREAKPOINTS
+    ----------------------------------- */
+    @media (max-width: 860px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .sidebar .profile {
+        display: none;
+      }
+
+      .sidebar nav {
+        flex-direction: row;
+        gap: 0.5rem;
+      }
+
+      main {
+        margin-left: 0;
+        padding: var(--padding);
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .sidebar nav a {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="profile">
+        <img
+          src="images/pp.jpeg"
+          alt="Profile picture of Jesse Njeru Njuguna"
+          class="profile-img"
+        />
+        <h1>Jesse Njeru Njuguna</h1>
+      </div>
+
+      <nav>
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="theme-toggle">
+        <button id="themeToggle" title="Toggle Light/Dark">🌓</button>
+      </div>
+    </aside>
+
+    <main id="home">
+  <!-- HOME SECTION -->
+  <section id="home" class="fade-in">
+    <h2>Welcome</h2>
+    <div class="card">
+      <img src="images/pp.jpeg" alt="Jesse Njeru Njuguna" style="width:150px; height:auto; border-radius:100%; display:block; margin-bottom: 1rem;">
+      <p>
+        Hello! I’m <strong>Jesse Njeru Njuguna.</strong> I’m a dedicated, ambitious, confident man with a quest of unquenchable learning. Ready to work in a challenging environment to work others' future career development and progress in the accounting, finance, tax, and related fields.
+      </p>
+    </div>
+  </section>
+      <!-- ABOUT SECTION -->
+      <section id="about" class="fade-in">
+        <h2>About</h2>
+        <div class="card">
+          <h3>Skills</h3>
+          <ul>
+            <li>Accounting and Bookkeeping Skills</li>
+            <li>Project Management</li>
+            <li>Analytical Skills</li>
+            <li>Inventory Control</li>
+            <li>Data Analysis</li>
+            <li>Teamwork</li>
+            <li>Planning and Organizing</li>
+            <li>Decision Making &amp; Problem Solving Skills</li>
+            <li>Time Management</li>
+            <li>Flexibility</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- EDUCATION & QUALIFICATIONS SECTION -->
+      <section id="education" class="fade-in">
+        <h2>Education &amp; Qualifications</h2>
+        <div class="card">
+          <h3>Master in Tax Administration – Moi University</h3>
+        </div>
+        <div class="card">
+          <h3>B Com Finance – Kenyatta University</h3>
+        </div>
+        <div class="card">
+          <h3>CPA (K) – KASNEB</h3>
+        </div>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <section id="contact" class="fade-in">
+        <h2>Contact</h2>
+        <div class="card">
+          <p>
+            <strong>Email:</strong>
+            <a href="mailto:njerujesse@gmail.com" style="color: blue; text-decoration: underline;">njerujesse@gmail.com</a>
+            <br>
+            <strong>Phone:</strong>
+            <a href="tel:+254711589984">+254 711 589 984</a>
+            </br>
+          </p>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer>
+        <p>&copy; 2025 Jesse Njeru Njuguna</p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Theme Toggle
+    const themeToggleBtn = document.getElementById("themeToggle");
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme");
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    }
+
+    themeToggleBtn.addEventListener("click", toggleTheme);
+
+    // Fade-In On Scroll
+    const faders = document.querySelectorAll(".fade-in");
+    const appearOptions = {
+      threshold: 0.2,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => appearOnScroll.observe(fader));
+
+    // Scroll-Spy: Highlight Active Sidebar Link
+    const sections = document.querySelectorAll("main section[id]");
+    const navLinks = document.querySelectorAll(".sidebar nav a");
+
+    function highlightCurrentLink() {
+      let index = sections.length;
+      while (--index && window.scrollY + 120 < sections[index].offsetTop) {}
+      navLinks.forEach(link => link.classList.remove("active"));
+      navLinks[index].classList.add("active");
+    }
+
+    highlightCurrentLink();
+    window.addEventListener("scroll", highlightCurrentLink);
+  </script>
+</body>
+</html>
