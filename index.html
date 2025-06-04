@@ -1,11 +1,12 @@
-<!DOCTYPE html> 
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Jesse Njeru Njuguna • Portfolio</title>
+  <meta name="description" content="Portfolio of Jesse Njeru Njuguna – accounting, finance, and tax professional." />
 
-  <!-- Google Font -->
+  <!-- Google Font: Inter -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
@@ -13,6 +14,9 @@
   />
 
   <style>
+    /*------------------------------------
+      :root Variables (Light Mode)
+    ------------------------------------*/
     :root {
       --color-bg: #f5f7fa;
       --color-text: #2b2b2b;
@@ -22,13 +26,16 @@
       --color-sidebar-bg: #ffffff;
       --color-sidebar-text: #2b2b2b;
       --shadow-light: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-      --shadow-dark: rgba(0, 0, 0, 0.6) 0px 4px 12px;
       --radius: 0.5rem;
       --transition: 0.3s ease-in-out;
       --sidebar-width: 260px;
       --padding: 1.5rem;
+      --font-family: "Inter", sans-serif;
     }
 
+    /*------------------------------------
+      Dark Theme Overrides
+    ------------------------------------*/
     [data-theme="dark"] {
       --color-bg: #1e1e1e;
       --color-text: #e0e0e0;
@@ -37,9 +44,15 @@
       --color-border: #333333;
       --color-sidebar-bg: #2a2a2a;
       --color-sidebar-text: #e0e0e0;
+      --shadow-light: rgba(0, 0, 0, 0.6) 0px 4px 12px;
     }
 
-    *, *::before, *::after {
+    /*------------------------------------
+      Global Resets
+    ------------------------------------*/
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -50,37 +63,38 @@
     }
 
     body {
-      font-family: "Inter", sans-serif;
+      font-family: var(--font-family);
       background-color: var(--color-bg);
       color: var(--color-text);
       line-height: 1.6;
-      transition: background-color var(--transition),
-                  color var(--transition);
+      transition: background-color var(--transition), color var(--transition);
     }
 
     a {
-      text-decoration: none;
       color: inherit;
+      text-decoration: none;
     }
 
     ul {
       list-style: none;
     }
-
     ul li::before {
       content: "▹";
       color: var(--color-accent);
       margin-right: 0.5rem;
     }
 
+    /*------------------------------------
+      Wrapper: Sidebar + Main Content
+    ------------------------------------*/
     .wrapper {
       display: flex;
       min-height: 100vh;
     }
 
-    /* -----------------------------------
-       SIDEBAR
-    ----------------------------------- */
+    /*------------------------------------
+      SIDEBAR
+    ------------------------------------*/
     .sidebar {
       position: fixed;
       top: 0;
@@ -99,14 +113,14 @@
     }
 
     [data-theme="dark"] .sidebar {
-      box-shadow: var(--shadow-dark);
+      box-shadow: var(--shadow-light);
     }
 
+    /* Profile Section */
     .sidebar .profile {
       text-align: center;
       margin-bottom: 2rem;
     }
-
     .sidebar .profile img.profile-img {
       width: 120px;
       height: 120px;
@@ -117,46 +131,42 @@
       box-shadow: var(--shadow-light);
       transition: border-color var(--transition), box-shadow var(--transition);
     }
-
     [data-theme="dark"] .sidebar .profile img.profile-img {
-      box-shadow: var(--shadow-dark);
+      box-shadow: var(--shadow-light);
     }
-
     .sidebar .profile h1 {
       font-size: 1.75rem;
       font-weight: 700;
       margin-bottom: 0.25rem;
     }
 
+    /* Navigation Links */
     .sidebar nav {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
-
     .sidebar nav a {
       font-weight: 500;
       padding: 0.5rem 1rem;
       border-radius: var(--radius);
-      transition: background-color var(--transition),
-                  color var(--transition);
+      transition: background-color var(--transition), color var(--transition);
       color: var(--color-sidebar-text);
       white-space: nowrap;
     }
-
     .sidebar nav a.active,
     .sidebar nav a:hover {
       background-color: var(--color-accent);
       color: #ffffff;
     }
 
+    /* Theme Toggle Button */
     .sidebar .theme-toggle {
       margin-top: auto;
       display: flex;
       justify-content: center;
     }
-
     .sidebar .theme-toggle button {
       cursor: pointer;
       font-size: 1.5rem;
@@ -166,12 +176,11 @@
       color: var(--color-sidebar-text);
       transition: color var(--transition);
     }
-
     .sidebar .theme-toggle button:hover {
       color: var(--color-accent);
     }
 
-    /* Sidebar toggle button for mobile */
+    /* Sidebar toggle for mobile */
     .sidebar-toggle {
       display: none;
       position: fixed;
@@ -188,18 +197,16 @@
       box-shadow: var(--shadow-light);
       transition: background-color var(--transition);
     }
-
     .sidebar-toggle:hover {
       background-color: #004999;
     }
 
-    /* -----------------------------------
-       MAIN CONTENT
-    ----------------------------------- */
+    /*------------------------------------
+      MAIN CONTENT
+    ------------------------------------*/
     main {
       margin-left: var(--sidebar-width);
-      padding: var(--padding) var(--padding) var(--padding)
-               calc(var(--padding) / 2);
+      padding: var(--padding) var(--padding) var(--padding) calc(var(--padding) / 2);
       max-width: calc(100% - var(--sidebar-width));
       transition: margin-left var(--transition);
     }
@@ -207,7 +214,6 @@
     section {
       margin-bottom: 3rem;
     }
-
     section h2 {
       font-size: 1.75rem;
       margin-bottom: 1rem;
@@ -216,6 +222,7 @@
       padding-bottom: 0.25rem;
     }
 
+    /* Card Component */
     .card {
       background-color: var(--color-card-bg);
       border: 1px solid var(--color-border);
@@ -223,26 +230,24 @@
       box-shadow: var(--shadow-light);
       padding: 1.5rem;
       margin-bottom: 1.5rem;
-      transition: background-color var(--transition),
-                  box-shadow var(--transition);
+      transition: background-color var(--transition), box-shadow var(--transition);
     }
-
     [data-theme="dark"] .card {
-      box-shadow: var(--shadow-dark);
+      box-shadow: var(--shadow-light);
     }
 
+    /* Fade-in animation */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.6s ease-out,
-                  transform 0.6s ease-out;
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
-
     .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
+    /* Footer */
     footer {
       text-align: center;
       padding: 1.5rem 0;
@@ -250,46 +255,26 @@
       opacity: 0.7;
     }
 
-    /* Responsive adjustments */
-
-    /* Sidebar hidden by default on small screens */
+    /* Responsive Styles */
     @media (max-width: 860px) {
+      /* Hide sidebar by default */
       .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: var(--sidebar-width);
         transform: translateX(-100%);
-        border-right: 1px solid var(--color-border);
-        flex-direction: column;
         padding-top: 3.5rem;
-        transition: transform var(--transition) ease-in-out;
       }
       .sidebar.open {
         transform: translateX(0);
+      }
+
+      /* Sidebar toggle visible */
+      .sidebar-toggle {
+        display: block;
       }
 
       main {
         margin-left: 0;
         padding: var(--padding);
         max-width: 100%;
-        transition: margin-left var(--transition);
-      }
-
-      .sidebar .profile {
-        display: block;
-        margin-bottom: 2rem;
-      }
-
-      .sidebar nav {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      /* Show toggle button */
-      .sidebar-toggle {
-        display: block;
       }
     }
 
@@ -298,33 +283,33 @@
         font-size: 0.9rem;
         padding: 0.4rem 0.8rem;
       }
-
       .card img {
-        width: 100px !important;
+        max-width: 100px !important;
         height: auto !important;
         margin: 0 auto 1rem;
         display: block;
       }
     }
 
-    /* Make images responsive */
+    /* Makes any <img> inside .card circular */
     .card img {
       max-width: 150px;
       height: auto;
       border-radius: 100%;
       display: block;
-      margin-bottom: 1rem;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto 1rem;
     }
   </style>
 </head>
 
 <body>
+  <!-- Sidebar Toggle (visible on mobile) -->
   <button class="sidebar-toggle" aria-label="Toggle Sidebar">☰</button>
 
   <div class="wrapper">
+    <!-- ===== Sidebar ===== -->
     <aside class="sidebar" aria-label="Sidebar Navigation">
+      <!-- Profile -->
       <div class="profile">
         <img
           src="images/pp.jpeg"
@@ -334,30 +319,33 @@
         <h1>Jesse Njeru Njuguna</h1>
       </div>
 
-      <nav>
+      <!-- Navigation Links -->
+      <nav aria-label="Main Navigation">
         <a href="#home" class="active">Home</a>
         <a href="#about">About</a>
         <a href="#education">Education</a>
         <a href="#contact">Contact</a>
       </nav>
 
+      <!-- Theme Toggle Button -->
       <div class="theme-toggle">
-        <button id="themeToggle" title="Toggle Light/Dark">🌓</button>
+        <button id="themeToggle" title="Toggle Light/Dark Mode">🌓</button>
       </div>
     </aside>
 
-    <main id="home">
+    <!-- ===== Main Content ===== -->
+    <main>
       <!-- HOME SECTION -->
       <section id="home" class="fade-in">
-       <div style="text-align: center;">
-  <h2>Welcome to my portfolio</h2>
-</div>
-
-
         <div class="card">
+          <div style="text-align: center; margin-bottom: 1rem;">
+            <h2>Welcome to My Portfolio</h2>
+          </div>
           <img src="images/pp.jpeg" alt="Jesse Njeru Njuguna" />
           <p>
-            Hello! I’m <strong>Jesse Njeru Njuguna.</strong> I’m a dedicated, ambitious, confident man with a quest of unquenchable learning. Ready to work in a challenging environment to work others' future career development and progress in the accounting, finance, tax, and related fields.
+            Hello! I’m <strong>Jesse Njeru Njuguna</strong>. I’m a dedicated,
+            ambitious, and energetic professional with untapped potential,
+            eager to contribute in accounting, finance, tax, and related fields.
           </p>
         </div>
       </section>
@@ -368,14 +356,14 @@
         <div class="card">
           <h3>Skills</h3>
           <ul>
-            <li>Accounting and Bookkeeping Skills</li>
+            <li>Accounting &amp; Bookkeeping</li>
             <li>Project Management</li>
             <li>Analytical Skills</li>
             <li>Inventory Control</li>
             <li>Data Analysis</li>
             <li>Teamwork</li>
-            <li>Planning and Organizing</li>
-            <li>Decision Making &amp; Problem Solving Skills</li>
+            <li>Planning &amp; Organizing</li>
+            <li>Decision Making &amp; Problem Solving</li>
             <li>Time Management</li>
             <li>Flexibility</li>
           </ul>
@@ -386,13 +374,13 @@
       <section id="education" class="fade-in">
         <h2>Education &amp; Qualifications</h2>
         <div class="card">
-          <h3>Master in Tax Administration – Moi University</h3>
+          <h3>Master’s in Tax Administration<br><small>Moi University</small></h3>
         </div>
         <div class="card">
-          <h3>B Com Finance – Kenyatta University</h3>
+          <h3>B.Com Finance<br><small>Kenyatta University</small></h3>
         </div>
         <div class="card">
-          <h3>CPA (K) – KASNEB</h3>
+          <h3>CPA (K)<br><small>KASNEB</small></h3>
         </div>
       </section>
 
@@ -402,10 +390,14 @@
         <div class="card">
           <p>
             <strong>Email:</strong>
-            <a href="mailto:njerujesse@gmail.com" style="color: blue; text-decoration: underline;">njerujesse@gmail.com</a>
+            <a href="mailto:njerujesse@gmail.com" style="color: var(--color-accent); text-decoration: underline;">
+              njerujesse@gmail.com
+            </a>
             <br />
             <strong>Phone:</strong>
-            <a href="tel:+254711589984">+254 711 589 984</a>
+            <a href="tel:+254711589984" style="color: var(--color-accent); text-decoration: underline;">
+              +254 711 589 984
+            </a>
           </p>
         </div>
       </section>
@@ -418,7 +410,9 @@
   </div>
 
   <script>
+    // -----------------------------
     // Theme Toggle
+    // -----------------------------
     const themeToggleBtn = document.getElementById("themeToggle");
     const savedTheme = localStorage.getItem("theme") || "light";
     document.documentElement.setAttribute("data-theme", savedTheme);
@@ -429,16 +423,16 @@
       document.documentElement.setAttribute("data-theme", next);
       localStorage.setItem("theme", next);
     }
-
     themeToggleBtn.addEventListener("click", toggleTheme);
 
+    // -----------------------------
     // Fade-In On Scroll
+    // -----------------------------
     const faders = document.querySelectorAll(".fade-in");
     const appearOptions = {
       threshold: 0.2,
       rootMargin: "0px 0px -50px 0px"
     };
-
     const appearOnScroll = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
@@ -446,10 +440,11 @@
         observer.unobserve(entry.target);
       });
     }, appearOptions);
-
     faders.forEach(fader => appearOnScroll.observe(fader));
 
+    // -----------------------------
     // Scroll-Spy: Highlight Active Sidebar Link
+    // -----------------------------
     const sections = document.querySelectorAll("main section[id]");
     const navLinks = document.querySelectorAll(".sidebar nav a");
 
@@ -459,23 +454,23 @@
       navLinks.forEach(link => link.classList.remove("active"));
       navLinks[index].classList.add("active");
     }
-
     highlightCurrentLink();
     window.addEventListener("scroll", highlightCurrentLink);
 
-    // Sidebar toggle for small screens
-    const sidebar = document.querySelector('.sidebar');
-    const toggleBtn = document.querySelector('.sidebar-toggle');
-
-    toggleBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
+    // -----------------------------
+    // Sidebar Toggle (mobile)
+    // -----------------------------
+    const sidebar = document.querySelector(".sidebar");
+    const toggleBtn = document.querySelector(".sidebar-toggle");
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
     });
 
     // Close sidebar on link click (mobile)
     navLinks.forEach(link => {
-      link.addEventListener('click', () => {
+      link.addEventListener("click", () => {
         if (window.innerWidth <= 860) {
-          sidebar.classList.remove('open');
+          sidebar.classList.remove("open");
         }
       });
     });
